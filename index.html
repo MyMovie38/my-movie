@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MY MOVIE</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #090b12;
+    color: white;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
+
+header {
+    padding: 22px;
+    background: #111522;
+    border-bottom: 1px solid #292e40;
+    text-align: center;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+    color: #7c8cff;
+    letter-spacing: 2px;
+}
+
+.container {
+    max-width: 650px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #9ca3b5;
+    margin-bottom: 35px;
+}
+
+.upload-box {
+    background: #141927;
+    border: 2px dashed #5965a5;
+    border-radius: 18px;
+    padding: 45px 15px;
+    text-align: center;
+}
+
+.icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.upload-box p {
+    color: #aab1c5;
+    margin-bottom: 22px;
+}
+
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 14px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.choose {
+    background: #687cff;
+    color: white;
+}
+
+.upload {
+    background: #252d43;
+    color: white;
+    width: 100%;
+    margin-top: 18px;
+}
+
+#fileName {
+    margin-top: 20px;
+    color: #aeb9ff;
+    word-break: break-word;
+}
+
+video {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 12px;
+    display: none;
+}
+
+footer {
+    text-align: center;
+    color: #626b80;
+    padding: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🎬 MY MOVIE</div>
+</header>
+
+<div class="container">
+
+    <h1>Upload Your Movie</h1>
+
+    <p class="subtitle">
+        Upload your video and share it with anyone.
+    </p>
+
+    <div class="upload-box">
+
+        <div class="icon">📤</div>
+
+        <h2>Select Your Video</h2>
+
+        <p>Maximum file size: 2 GB</p>
+
+        <input
+            type="file"
+            id="videoFile"
+            accept="video/*"
+            hidden
+        >
+
+        <button class="choose"
+            onclick="document.getElementById('videoFile').click()">
+            Choose Video
+        </button>
+
+        <div id="fileName"></div>
+
+        <video id="preview" controls></video>
+
+    </div>
+
+    <button class="upload" disabled>
+        Upload system coming soon
+    </button>
+
+</div>
+
+<footer>
+    MY MOVIE © 2026
+</footer>
+
+<script>
+const input = document.getElementById("videoFile");
+const preview = document.getElementById("preview");
+const fileName = document.getElementById("fileName");
+
+input.addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024 * 1024) {
+        alert("Video size must be under 2 GB!");
+        this.value = "";
+        return;
+    }
+
+    fileName.textContent =
+        file.name + " (" +
+        (file.size / (1024 * 1024)).toFixed(2) +
+        " MB)";
+
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = "block";
+
+});
+</script>
+
+</body>
+</html>
